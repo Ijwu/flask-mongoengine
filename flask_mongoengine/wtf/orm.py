@@ -6,7 +6,7 @@ import sys
 from collections import OrderedDict
 
 from bson import ObjectId
-from mongoengine import ReferenceField
+from mongoengine import ReferenceField, ImageField
 from wtforms import fields as f, validators
 
 from flask_mongoengine.wtf.fields import (
@@ -215,6 +215,10 @@ class ModelConverter(object):
     @converts("GenericReferenceField")
     def conv_GenericReference(self, model, field, kwargs):
         return
+
+    @converts('FileField')
+    def conv_File(self, model, field, kwargs):
+        return f.FileField(**kwargs)
 
     def coerce(self, field_type):
         coercions = {

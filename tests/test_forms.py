@@ -384,6 +384,19 @@ class WTFormsAppTestCase(FlaskMongoEngineTestCase):
             self.assertEqual(form.answer.type, "RadioField")
             self.assertEqual(form.answer.choices, choices)
 
+    def test_filefield(self):
+        with self.app.test_request_context('/'):
+            db = self.db
+
+            class FileUpload(db.Document):
+                file = db.FileField()
+
+            FileUploadForm = model_form(FileUpload)
+
+            form = FileUploadForm(file=None)
+
+            self.assertEqual(wtforms.widgets.FileInput, type(form.file.widget))
+
     def test_passwordfield(self):
         with self.app.test_request_context("/"):
             db = self.db
