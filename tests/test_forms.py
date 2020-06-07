@@ -385,7 +385,7 @@ class WTFormsAppTestCase(FlaskMongoEngineTestCase):
             self.assertEqual(form.answer.choices, choices)
 
     def test_filefield(self):
-        with self.app.test_request_context('/'):
+        with self.app.test_request_context("/"):
             db = self.db
 
             class FileUpload(db.Document):
